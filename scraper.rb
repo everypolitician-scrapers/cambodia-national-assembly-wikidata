@@ -31,3 +31,6 @@ def fetch_info(names)
 end
 
 fetch_info(wikinames_from("https://en.wikipedia.org/wiki/List_of_MPs_of_the_National_Assembly_of_Cambodia"))
+
+require 'rest-client'
+warn RestClient.post ENV['MORPH_REBUILDER_URL'], {} if ENV['MORPH_REBUILDER_URL']
