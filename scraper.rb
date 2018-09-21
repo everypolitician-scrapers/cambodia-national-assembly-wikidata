@@ -1,5 +1,5 @@
 #!/bin/env ruby
-# encoding: utf-8
+# frozen_string_literal: true
 
 require 'wikidata/fetcher'
 
@@ -13,4 +13,7 @@ names_2018 = EveryPolitician::Wikidata.wikipedia_xpath(
   xpath: '//table[.//th[contains(.,"Constituency")]]//tr[td]//td[last()]//a[not(@class="new")]/@title'
 )
 
-EveryPolitician::Wikidata.scrape_wikidata(names: { en: names_2013 | names_2018 })
+sparq = 'SELECT DISTINCT ?item WHERE { ?item p:P39/ps:P39 wd:Q21295974 }'
+ids = EveryPolitician::Wikidata.sparql(sparq)
+
+EveryPolitician::Wikidata.scrape_wikidata(ids: ids, names: { en: names_2013 | names_2018 })
